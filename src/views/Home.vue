@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { NavigationBar, IntroduceContainer, FeatureCard } from '@/components'
+import {
+  NavigationBar,
+  IntroduceContainer,
+  FeatureCard,
+  Footer,
+} from '@/components'
 import { featureData, roadmapData } from '@/constant'
 
 const isClicked = ref(false)
@@ -81,8 +86,9 @@ const onClickStart = () => {
           class="mx-auto grid max-w-5xl items-start gap-6 py-12 lg:grid-cols-3 lg:gap-12"
         >
           <FeatureCard
-            v-for="{ id, title, description } in featureData"
+            v-for="{ id, icon, title, description } in featureData"
             :key="id"
+            :icon
             :title
             :description
           />
@@ -94,19 +100,22 @@ const onClickStart = () => {
         description="이게 재미있으려면 큰 스크린이 필요하기 함, 문제를 푸는 사람 역시
                 매 순간마다 랜덤으로 뽑을 예정인데 내 느낌 상으로는 재밌을 것
                 같음"
+        padding="pb-12 md:pb-24 lg:pb-32"
       >
         <div
           class="mx-auto grid max-w-5xl items-start gap-6 py-12 lg:grid-cols-3 lg:gap-12"
         >
           <FeatureCard
-            v-for="{ id, title, description } in roadmapData"
+            v-for="{ id, icon, title, description } in roadmapData"
             :key="id"
+            :icon
             :title
             :description
           />
         </div>
       </IntroduceContainer>
     </main>
+    <Footer />
   </div>
 </template>
 <style scoped></style>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { Element } from '@/components'
+
 defineProps<{
+  icon: string
   title: string
   description: string
 }>()
@@ -12,7 +15,7 @@ defineProps<{
     <div
       class="bg-[#9945FF] rounded-md flex items-center justify-center aspect-square w-12 h-12"
     >
-      <slot name="icon" />
+      <Element :name="icon" />
     </div>
     <div class="grid gap-1">
       <h3 class="text-xl font-bold text-[#F0F6FC]">{{ title }}</h3>
