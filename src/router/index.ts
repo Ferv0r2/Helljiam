@@ -8,6 +8,16 @@ const router = createRouter({
       name: 'home',
       component: () => import('@/views/Home.vue'),
     },
+    {
+      path: '/playground',
+      name: 'playground',
+      component: () => import('@/views/Playground.vue'),
+    },
+    {
+      path: '/loading',
+      name: 'loading',
+      component: () => import('@/views/AssetsLoading.vue'),
+    },
   ],
 })
 

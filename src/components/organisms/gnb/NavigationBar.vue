@@ -11,7 +11,7 @@ const onClickLogo = () => {
 <template>
   <header class="px-4 lg:px-6 h-20 flex items-center border-b border-gray-700">
     <figure
-      class="flex items-center justify-center"
+      class="cursor-pointer flex items-center justify-center"
       href="/"
       @click="onClickLogo"
     >
