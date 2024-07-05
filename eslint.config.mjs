@@ -23,7 +23,7 @@ export default [
     },
   },
   {
-    ignores: ['**/dist/*', '**/.yarn/*'],
+    ignores: ['**/dist/*', '**/.yarn/*', '**/server/*'],
   },
   js.configs.recommended,
   ...ts.configs.recommended,
