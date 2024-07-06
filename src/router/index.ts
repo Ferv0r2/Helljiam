@@ -18,6 +18,11 @@ const router = createRouter({
       name: 'loading',
       component: () => import('@/views/AssetsLoading.vue'),
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/views/TestView.vue'),
+    },
   ],
 })
 

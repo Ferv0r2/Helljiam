@@ -12,7 +12,7 @@ import router from '@/router'
 import './style.css'
 
 const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_GRAPHQL,
+  uri: import.meta.env.VITE_GRAPHQL_URI,
 })
 // Cache implementation
 const cache = new InMemoryCache()
