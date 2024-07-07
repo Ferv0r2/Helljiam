@@ -8,13 +8,28 @@ const assets = [
   '/images/banner.png',
   '/images/logo.png',
   '/images/og-banner.png',
+  '/images/profile/mingyu.png',
+  '/images/profile/jongwon.png',
+  '/images/profile/gyeongseok.png',
+  '/images/profile/hyeonu.png',
+  '/images/profile/jaewon.png',
+  '/images/profile/jaeyoon.png',
+  '/images/profile/gwiyeong.png',
+  '/images/profile/deogun.png',
+  '/images/profile/wontae.png',
+  '/images/profile/uchi.png',
+  '/images/profile/donggi.png',
+  '/images/profile/seunggi.png',
+  '/images/quiz/1.png',
+  '/images/quiz/2.png',
+  '/images/quiz/3.png',
 ]
 
 const { loaded, progress, loadAssets } = useAssetsLoader(assets)
 
 const onMovePlayground = () => {
   router.replace({
-    name: 'playground',
+    name: 'quiz-selector',
   })
 }
 

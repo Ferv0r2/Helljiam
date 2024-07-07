@@ -10,6 +10,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import './style.css'
+import 'vue3-carousel/dist/carousel.css'
 
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_GRAPHQL_URI,

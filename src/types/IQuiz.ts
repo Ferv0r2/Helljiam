@@ -1,10 +1,11 @@
-export type QuizType = 'song' | 'sense' | 'character'
+export type QuizType = 'song' | 'helljiam' | 'character' | 'etc'
 
 export type IQuiz = {
+  id: string
   type: QuizType
   title: string
-  description: string
-  data: string
   difficulty: number
-  isHelljiam?: boolean
+  image: string
+  data?: string[]
+  answer: string
 }
