@@ -144,6 +144,8 @@ export const profileList = [
   },
 ]
 
+export const playerList = profileList.filter((v) => v.id !== 'wontae')
+
 export const quizList: IQuiz[] = [
   {
     id: '1',

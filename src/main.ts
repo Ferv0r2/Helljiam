@@ -4,6 +4,7 @@ import {
   InMemoryCache,
 } from '@apollo/client/core'
 import { DefaultApolloClient } from '@vue/apollo-composable'
+import { MotionPlugin } from '@vueuse/motion'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
@@ -30,5 +31,6 @@ const pinia = createPinia()
 app.provide(DefaultApolloClient, apolloClient)
 app.use(pinia)
 app.use(router)
+app.use(MotionPlugin)
 
 app.mount('#app')

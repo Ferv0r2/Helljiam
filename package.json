@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.10.8",
     "@vue/apollo-composable": "^4.0.2",
+    "@vueuse/motion": "^2.2.3",
     "dayjs": "^1.11.11",
     "graphql": "^16.9.0",
     "graphql-tag": "^2.12.6",

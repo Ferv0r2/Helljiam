@@ -68,6 +68,7 @@ export default [
       'no-var': 2, // Disallow 'var' keyword
       'prettier/prettier': 'warn', // Integrate Prettier and warn about style discrepancies
       'no-void': ['error', { allowAsStatement: true }], // Disallow 'void' operator, except as a statement\
+      'no-undef': 'off',
     },
   },
 ]

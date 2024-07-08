@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { Carousel, Slide } from 'vue3-carousel'
-import { LabelChip, ProfileCard } from '@/components'
+import { LabelChip, RandomPlayer, ProgressTimer } from '@/components'
 import {
-  profileList,
+  playerList,
   quizList,
   QuizType,
   PLAYGROUND_AUTOPLAY_SECOND,
-  PLAYGROUND_CAROUSEL_COUNT,
+  PLAYGROUND_QUIZ_TIMER,
 } from '@/constant'
+import { useQuizStore } from '@/stores/quizStore'
 
 const router = useRouter()
-const selectedUser = ref(profileList[0])
+const quizStore = useQuizStore()
+const selectedUser = ref(playerList[0])
 const randomIdx = ref(0)
 const autoplay = ref<number | undefined>(PLAYGROUND_AUTOPLAY_SECOND)
 const isSelecting = ref(true)
+const timeEnd = ref(false)
 
 const quizId = computed(() => router.currentRoute.value.query.quizId as string)
 const currentQuiz = computed(() =>
@@ -27,15 +29,70 @@ const quizDifficulty = computed(() =>
   '⭐'.repeat(currentQuiz.value?.difficulty ?? 1),
 )
 
-onMounted(() => {
-  const timer = setTimeout(() => {
-    randomIdx.value = Math.floor(Math.random() * profileList.length)
-    selectedUser.value = profileList.filter((v) => v.id !== 'wontae')[
-      randomIdx.value
-    ]
+let timerId: number | null = null
+
+const startTimer = () => {
+  timerId = window.setTimeout(() => {
+    randomIdx.value = Math.floor(Math.random() * playerList.length)
+    selectedUser.value = playerList[randomIdx.value]
     autoplay.value = undefined
   }, 3000)
-  return () => clearTimeout(timer)
+}
+
+const stopTimer = () => {
+  if (timerId !== null) {
+    clearTimeout(timerId)
+    timerId = null
+  }
+}
+
+const onEndTime = () => {
+  timeEnd.value = true
+}
+
+const onShowAnswer = () => {
+  quizStore.alreadyQuiz = [...quizStore.alreadyQuiz, quizId.value]
+
+  let randomId
+  const maxAttempts = quizList.length // 최대 시도 횟수를 퀴즈 리스트 길이로 설정
+
+  for (let i = 0; i < maxAttempts; i++) {
+    randomId = Math.floor(Math.random() * quizList.length) + 1
+
+    // 이미 존재하는 ID가 아니라면 루프를 탈출
+    if (!quizStore.alreadyQuiz.includes(String(randomId))) {
+      break
+    }
+
+    // 모든 퀴즈가 이미 추출된 경우를 처리
+    if (i === maxAttempts - 1) {
+      randomId = null // 모든 퀴즈가 추출된 경우 null로 설정
+    }
+  }
+
+  if (randomId !== null) {
+    timeEnd.value = false
+    isSelecting.value = true
+    autoplay.value = PLAYGROUND_AUTOPLAY_SECOND
+    startTimer()
+    router.push({
+      name: 'playground',
+      query: {
+        quizId: randomId,
+      },
+    })
+  } else {
+    // 모든 퀴즈가 이미 추출된 경우 처리
+    console.log('모든 퀴즈를 완료했습니다.')
+  }
+}
+
+onMounted(() => {
+  startTimer()
+})
+
+onUnmounted(() => {
+  stopTimer()
 })
 
 watch(autoplay, (value) => {
@@ -47,6 +104,7 @@ watch(autoplay, (value) => {
     return () => clearTimeout(timer)
   }
 })
+provide('randomIdx', randomIdx)
 </script>
 <template>
   <main class="min-h-screen overflow-hidden">
@@ -85,43 +143,22 @@ watch(autoplay, (value) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div v-else class="w-[540px] mx-auto flex flex-col gap-8">
-            <h1
-              class="text-5xl leading-normal font-bold tracking-tighter text-[#F0F6FC]"
+            <ProgressTimer
+              v-if="!timeEnd"
+              :time="PLAYGROUND_QUIZ_TIMER"
+              @time-end="onEndTime"
+            />
+            <button
+              v-else
+              v-motion-roll-visible-right
+              type="button"
+              class="cursor-pointer w-full bg-slate-500 p-6 rounded-2xl text-center text-3xl font-bold hover:bg-slate-600"
+              @click="onShowAnswer"
             >
-              문제 푸는 사람
-              <span v-if="!autoplay">: {{ selectedUser.name }}</span>
-            </h1>
-            <div>
-              <Carousel
-                v-model="randomIdx"
-                :items-to-show="PLAYGROUND_CAROUSEL_COUNT"
-                :autoplay
-                :wrap-around="true"
-                :transition="0"
-              >
-                <Slide
-                  v-for="{
-                    id,
-                    name,
-                    description,
-                    birthday,
-                    keyword,
-                  } in profileList"
-                  :key="id"
-                >
-                  <ProfileCard
-                    :id="id"
-                    :name="name"
-                    :description="description"
-                    :birthday="birthday"
-                    :keyword="keyword"
-                  />
-                </Slide>
-              </Carousel>
-            </div>
+              ⭐ 정답 보기 ⭐
+            </button>
           </div>
+          <RandomPlayer v-else :autoplay :selected-name="selectedUser.name" />
         </Transition>
       </div>
     </section>

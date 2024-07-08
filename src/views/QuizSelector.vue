@@ -53,9 +53,6 @@ const onStartGame = () => {
             >
               헬지암 놀이터에 오신 걸 환영합니다
             </h1>
-            <p class="text-gray-300 md:text-xl">
-              원하시는 퀴즈를 선택해 주세요
-            </p>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-12 px-12 py-8 rounded-2xl">
@@ -91,7 +88,10 @@ const onStartGame = () => {
           <div>
             <div class="text-xl px-6 font-semibold">퀴즈 리스트</div>
             <div class="flex flex-col p-6 gap-20">
-              <div>아래 버튼을 누르면 10초 뒤에 퀴즈가 시작됩니다.</div>
+              <div>
+                아래 버튼을 누르면 {{ SELECTOR_START_TIMER_COUNT }}초 뒤에
+                퀴즈가 시작됩니다.
+              </div>
               <div>
                 <Timer
                   v-if="countdown"
