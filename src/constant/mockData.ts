@@ -154,8 +154,11 @@ export const quizList: IQuiz[] = [
       '다음은 영화 <말죽거리 잔혹사>에서 나온 장면이다. 극 중 대사로 옳은 것은?',
     difficulty: 2,
     image: '/images/quiz/1.png',
-    data: ['옥상으로 따라와', '옥상으로 올라와'],
-    answer: '옥상으로 올라와',
+    data: ['1. 옥상으로 따라와', '2. 옥상으로 올라와'],
+    answer: {
+      image: null,
+      text: '2. 옥상으로 올라와',
+    },
   },
   {
     id: '2',
@@ -163,8 +166,11 @@ export const quizList: IQuiz[] = [
     title: '다음은 영화 <친구>에서 나온 장면이다. 극 중 대사로 옳은 것은?',
     difficulty: 2,
     image: '/images/quiz/2.png',
-    data: ['고마해라, 마이 무따 아이가', '마이 무따 아이가, 고마해라'],
-    answer: '마이 무따 아이가, 고마해라',
+    data: ['1. 고마해라, 마이 무따 아이가', '2. 마이 무따 아이가, 고마해라'],
+    answer: {
+      image: null,
+      text: '2. 마이 무따 아이가, 고마해라',
+    },
   },
   {
     id: '3',
@@ -173,6 +179,20 @@ export const quizList: IQuiz[] = [
       '다음은 헬지암팸 디스코드 서버의 한 유저의 프로필 사진이다. 해당 프로필의 소유자는?',
     difficulty: 1,
     image: '/images/quiz/3.png',
-    answer: '김현우',
+    answer: {
+      image: null,
+      text: '김현우',
+    },
+  },
+  {
+    id: '4',
+    type: 'helljiam',
+    title: '다음은 헬지암팸 멤버이다. 해당 멤버의 생일은??',
+    difficulty: 1,
+    image: '/images/profile/jaeyoon.png',
+    answer: {
+      image: null,
+      text: '고재윤 - 09월 23일',
+    },
   },
 ]

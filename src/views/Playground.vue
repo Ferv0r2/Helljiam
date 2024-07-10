@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { LabelChip, RandomPlayer, ProgressTimer } from '@/components'
+import {
+  LabelChip,
+  RandomPlayer,
+  ProgressTimer,
+  SelectButton,
+  TypingText,
+} from '@/components'
 import {
   playerList,
   quizList,
@@ -18,6 +24,7 @@ const randomIdx = ref(0)
 const autoplay = ref<number | undefined>(PLAYGROUND_AUTOPLAY_SECOND)
 const isSelecting = ref(true)
 const timeEnd = ref(false)
+const isShowingAnswer = ref(false)
 
 const quizId = computed(() => router.currentRoute.value.query.quizId as string)
 const currentQuiz = computed(() =>
@@ -51,6 +58,10 @@ const onEndTime = () => {
 }
 
 const onShowAnswer = () => {
+  isShowingAnswer.value = true
+}
+
+const onClickNextQuiz = () => {
   quizStore.alreadyQuiz = [...quizStore.alreadyQuiz, quizId.value]
 
   let randomId
@@ -72,6 +83,7 @@ const onShowAnswer = () => {
 
   if (randomId !== null) {
     timeEnd.value = false
+    isShowingAnswer.value = false
     isSelecting.value = true
     autoplay.value = PLAYGROUND_AUTOPLAY_SECOND
     startTimer()
@@ -111,7 +123,10 @@ provide('randomIdx', randomIdx)
     <section class="w-4/5 mx-auto py-16 bg-[#0D1117]">
       <div class="container flex justify-center mx-auto px-4 md:px-6">
         <Transition name="fade-slide" mode="out-in">
-          <div v-if="!isSelecting" class="grid gap-6 lg:gap-12 items-center">
+          <div
+            v-if="!isSelecting"
+            class="grid max-w-[1200px] w-full gap-6 lg:gap-12 items-center"
+          >
             <div class="space-y-8 relative z-10">
               <div class="flex items-center gap-4">
                 <LabelChip :name="quizType" />
@@ -126,37 +141,57 @@ provide('randomIdx', randomIdx)
               <div class="grid grid-cols-2 gap-12">
                 <img
                   v-if="currentQuiz?.image"
+                  class="max-h-[480px]"
                   :src="currentQuiz.image"
                   alt="info"
                 />
-                <div>
-                  <div v-if="currentQuiz?.data">
-                    <div
-                      v-for="(item, idx) in currentQuiz?.data"
-                      :key="item"
-                      class="cursor-pointer flex-1 p-4 text-4xl font-bold underline underline-offset-8 hover:text-yellow-400"
-                    >
-                      {{ `${idx + 1}. ${item}` }}
-                    </div>
+                <div v-if="currentQuiz?.data">
+                  <div
+                    v-for="item in currentQuiz.data"
+                    :key="item"
+                    class="cursor-pointer flex-1 p-4 text-4xl font-bold underline underline-offset-8 hover:text-yellow-400"
+                  >
+                    {{ item }}
                   </div>
-                  <div v-else>정답을 외쳐 주세요!</div>
+                </div>
+                <div>
+                  <div
+                    v-motion-slide-visible-bottom
+                    class="font-bold text-5xl mt-20 text-yellow-400 bg-black text-center p-4"
+                  >
+                    <span v-if="!isShowingAnswer">정답을 외쳐 주세요!</span>
+                    <span v-else>
+                      <TypingText :text="currentQuiz?.answer.text ?? ''" />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-            <ProgressTimer
-              v-if="!timeEnd"
-              :time="PLAYGROUND_QUIZ_TIMER"
-              @time-end="onEndTime"
-            />
-            <button
-              v-else
-              v-motion-roll-visible-right
-              type="button"
-              class="cursor-pointer w-full bg-slate-500 p-6 rounded-2xl text-center text-3xl font-bold hover:bg-slate-600"
-              @click="onShowAnswer"
-            >
-              ⭐ 정답 보기 ⭐
-            </button>
+            <template v-if="!isShowingAnswer">
+              <ProgressTimer
+                v-if="!timeEnd"
+                :time="PLAYGROUND_QUIZ_TIMER"
+                @time-end="onEndTime"
+              />
+              <button
+                v-else
+                v-motion-roll-visible-right
+                type="button"
+                class="cursor-pointer w-full bg-slate-500 p-6 rounded-2xl text-center text-3xl font-bold hover:bg-slate-600"
+                @click="onShowAnswer"
+              >
+                ⭐ 정답 보기 ⭐
+              </button>
+            </template>
+            <div v-else class="flex flex-col gap-8">
+              <SelectButton
+                v-motion-roll-visible-bottom
+                :disabled="false"
+                @click="onClickNextQuiz"
+              >
+                ▶️ 다음 문제
+              </SelectButton>
+            </div>
           </div>
           <RandomPlayer v-else :autoplay :selected-name="selectedUser.name" />
         </Transition>

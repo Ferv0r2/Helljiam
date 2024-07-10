@@ -7,5 +7,5 @@ export type IQuiz = {
   difficulty: number
   image: string
   data?: string[]
-  answer: string
+  answer: { text: string; image: string | null }
 }
