@@ -53,7 +53,7 @@ export const profileList = [
     id: 'mingyu',
     name: '김민규',
     description:
-      '(구)지각과 배신의 아이콘. 민규 없는 민규 생일 파티 오거나이저',
+      '(구)지각과 배신의 아이콘. 민규 없는 민규 생일 파티 오거나이저.',
     birthday: '1998-02-18',
     keyword: [
       '남성_인권_위원회장',
@@ -72,29 +72,29 @@ export const profileList = [
   {
     id: 'gyeongseok',
     name: '유경석',
-    description: '',
+    description: '본인에게 관대하고 남에게 엄격한 내로남불 사상을 지지함.',
     birthday: '1998-06-01',
-    keyword: ['모두까기인형', '큰_가슴'],
+    keyword: ['모두까기인형', '바버샵_경험자'],
   },
   {
     id: 'hyeonu',
     name: '김현우',
     description:
-      '고등학생 시절 씹덕들의 왕, 전역 이후 옷을 사입는 등 헬지암답지 않은 모습',
+      '고등학생 시절 씹덕들의 왕, 전역 이후 옷을 사입는 등 헬지암답지 않은 모습.',
     birthday: '1998-06-06',
     keyword: ['뭐임?', '설명충', '씹덕', '불패'],
   },
   {
     id: 'jaewon',
     name: '전재원',
-    description: '',
+    description: '슈퍼 정자를 보유하고 있음. 경상도 사투리 면역 보유.',
     birthday: '1998-09-10',
     keyword: ['헬지암_최고학력자', '시간_약속_망각인', '두환이_아빠', '일본인'],
   },
   {
     id: 'jaeyoon',
     name: '고재윤',
-    description: 'FPS 재능충. 무릎 존나 잘꺾음. 특정 사람을 잘 긁음',
+    description: 'FPS 재능충. 무릎 존나 잘꺾음. 특정 사람을 잘 긁음.',
     birthday: '1998-09-23',
     keyword: ['고자', '밤의_황제', '효자'],
   },
@@ -102,7 +102,7 @@ export const profileList = [
     id: 'gwiyeong',
     name: '박귀영',
     description:
-      '남소 요청오면 소개시켜 주고 싶은 남자 1위. 계획적이며 져줄 줄 아는 인재',
+      '남소 요청오면 소개시켜 주고 싶은 남자 1위. 계획적이며 져줄 줄 아는 인재.',
     birthday: '1998-10-29',
     keyword: ['헬지암_리더', '술만_먹고_갈거_아니잖아요', '롤로노아_김동현'],
   },
@@ -110,14 +110,14 @@ export const profileList = [
     id: 'deogun',
     name: '김덕운',
     description:
-      '취업 이후 급격하게 거대화. 손해 보더라도 드랍쉽으로서 책임을 다함',
+      '취업 이후 급격하게 거대화. 손해 보더라도 드랍쉽으로서 책임을 다함.',
     birthday: '1998-10-30',
     keyword: ['헬지암_드랍쉽', '전문_노예', '집사'],
   },
   {
     id: 'wontae',
     name: '황원태',
-    description: '헬지암 크리에이터',
+    description: '헬지암 크리에이터.',
     birthday: '1998-11-21',
     keyword: ['헬지암_디코_방장'],
   },
@@ -131,14 +131,14 @@ export const profileList = [
   {
     id: 'donggi',
     name: '김동기',
-    description: '',
+    description: '순결을 훔친 남자',
     birthday: '1998-12-23',
     keyword: ['목소리페티쉬', '헬스인'],
   },
   {
     id: 'seunggi',
     name: '김승기',
-    description: '',
+    description: '로리콘 의심이 경력이 있음',
     birthday: '1998-12-23',
     keyword: ['김동기사냥개', '장발거지', '먹방'],
   },
@@ -187,12 +187,113 @@ export const quizList: IQuiz[] = [
   {
     id: '4',
     type: 'helljiam',
-    title: '다음은 헬지암팸 멤버이다. 해당 멤버의 생일은??',
+    title: '다음은 헬지암팸 멤버이다. 해당 멤버의 생일은?? (ex. 01월 01일)',
     difficulty: 1,
     image: '/images/profile/jaeyoon.png',
     answer: {
       image: null,
-      text: '고재윤 - 09월 23일',
+      text: '09월 23일',
+    },
+  },
+  {
+    id: '5',
+    type: 'character',
+    title: '다음 두 인물 중에서 독립 운동가를 고르시오.',
+    difficulty: 5,
+    image: ['/images/quiz/5-1.png', '/images/quiz/5-2.png'],
+    answer: {
+      image: '/images/quiz/5-2.png',
+      text: '[이동휘 선생] 일제강점기 때, 학교와 서북학회 등을 설립해 민족계몽운동을 전개하였으며, 대한민국임시정부 국무총리 등을 역임한 독립운동가.',
+    },
+  },
+  {
+    id: '6',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 1,
+    image: '/images/quiz/6.png',
+    answer: {
+      image: null,
+      text: '박보검',
+    },
+  },
+  {
+    id: '7',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 1,
+    image: '/images/quiz/7.png',
+    answer: {
+      image: null,
+      text: '도널드 트럼프 (Donald Trump)',
+    },
+  },
+  {
+    id: '8',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 2,
+    image: '/images/quiz/8.png',
+    answer: {
+      image: null,
+      text: '조승우',
+    },
+  },
+  {
+    id: '9',
+    type: 'game',
+    title: '다음 캐릭터는 리그오브레전드의 유미이다. 유미의 Q 스킬 이름은?',
+    difficulty: 3,
+    image: '/images/quiz/9.png',
+    data: ['1. 피슝', '2. 미사일', '3. 샤르르탄', '4. 슈르르탄'],
+    answer: {
+      image: null,
+      text: '3. 샤르르탄',
+    },
+  },
+  {
+    id: '10',
+    type: 'character',
+    title: '다음 캐릭터는 누구인가요?',
+    difficulty: 2,
+    image: '/images/quiz/10.png',
+    answer: {
+      image: null,
+      text: '또치',
+    },
+  },
+  {
+    id: '11',
+    type: 'game',
+    title:
+      '리그오브레전드에서 6번째에 위치한 챔피언의 이름은? (2024년 07월 기준)',
+    difficulty: 3,
+    image: '/images/quiz/11-1.png',
+    answer: {
+      image: '/images/quiz/11-2.png',
+      text: '그웬',
+    },
+  },
+  {
+    id: '12',
+    type: 'etc',
+    title: '다음 국기는 어느 나라 것인가?',
+    difficulty: 5,
+    image: '/images/quiz/12.png',
+    answer: {
+      image: null,
+      text: '루마니아',
+    },
+  },
+  {
+    id: '13',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 2,
+    image: '/images/quiz/13.png',
+    answer: {
+      image: null,
+      text: '손석구',
     },
   },
 ]

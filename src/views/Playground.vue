@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import {
   LabelChip,
@@ -14,6 +14,7 @@ import {
   QuizType,
   PLAYGROUND_AUTOPLAY_SECOND,
   PLAYGROUND_QUIZ_TIMER,
+  SELECTOR_PLAYER_TIMER,
 } from '@/constant'
 import { useQuizStore } from '@/stores/quizStore'
 
@@ -25,6 +26,7 @@ const autoplay = ref<number | undefined>(PLAYGROUND_AUTOPLAY_SECOND)
 const isSelecting = ref(true)
 const timeEnd = ref(false)
 const isShowingAnswer = ref(false)
+const isShowDifficulty = ref(false)
 
 const quizId = computed(() => router.currentRoute.value.query.quizId as string)
 const currentQuiz = computed(() =>
@@ -35,15 +37,21 @@ const quizTitle = computed(() => currentQuiz.value?.title)
 const quizDifficulty = computed(() =>
   '⭐'.repeat(currentQuiz.value?.difficulty ?? 1),
 )
+const isStringQuizImage = computed(
+  () => typeof currentQuiz.value?.image === 'string',
+)
 
 let timerId: number | null = null
 
 const startTimer = () => {
-  timerId = window.setTimeout(() => {
-    randomIdx.value = Math.floor(Math.random() * playerList.length)
-    selectedUser.value = playerList[randomIdx.value]
-    autoplay.value = undefined
-  }, 3000)
+  const random = Math.floor(Math.random() * playerList.length)
+  timerId = window.setTimeout(async () => {
+    await nextTick(() => {
+      randomIdx.value = random
+      selectedUser.value = playerList[randomIdx.value]
+      autoplay.value = undefined
+    })
+  }, SELECTOR_PLAYER_TIMER)
 }
 
 const stopTimer = () => {
@@ -93,10 +101,12 @@ const onClickNextQuiz = () => {
         quizId: randomId,
       },
     })
-  } else {
-    // 모든 퀴즈가 이미 추출된 경우 처리
-    console.log('모든 퀴즈를 완료했습니다.')
+    return
   }
+  router.push({
+    name: 'quiz-selector',
+  })
+  console.log('모든 퀴즈를 완료했습니다.')
 }
 
 onMounted(() => {
@@ -109,17 +119,24 @@ onUnmounted(() => {
 
 watch(autoplay, (value) => {
   if (value === undefined) {
+    const difficultyTimer = setTimeout(() => {
+      isShowDifficulty.value = true
+    }, 1500)
+
     const timer = setTimeout(() => {
       isSelecting.value = false
-    }, 3000)
+      isShowDifficulty.value = false
+    }, SELECTOR_PLAYER_TIMER)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(difficultyTimer)
+      clearTimeout(timer)
+    }
   }
 })
-provide('randomIdx', randomIdx)
 </script>
 <template>
-  <main class="min-h-screen overflow-hidden">
+  <main class="relative min-h-screen overflow-hidden">
     <section class="w-4/5 mx-auto py-16 bg-[#0D1117]">
       <div class="container flex justify-center mx-auto px-4 md:px-6">
         <Transition name="fade-slide" mode="out-in">
@@ -139,32 +156,67 @@ provide('randomIdx', randomIdx)
                 {{ quizTitle }}
               </h1>
               <div class="grid grid-cols-2 gap-12">
-                <img
-                  v-if="currentQuiz?.image"
-                  class="max-h-[480px]"
-                  :src="currentQuiz.image"
-                  alt="info"
-                />
-                <div v-if="currentQuiz?.data">
-                  <div
-                    v-for="item in currentQuiz.data"
-                    :key="item"
-                    class="cursor-pointer flex-1 p-4 text-4xl font-bold underline underline-offset-8 hover:text-yellow-400"
-                  >
-                    {{ item }}
+                <template v-if="isStringQuizImage">
+                  <img
+                    v-if="currentQuiz?.image"
+                    class="max-h-[480px]"
+                    :src="String(currentQuiz.image)"
+                    alt="info"
+                  />
+                  <div>
+                    <div v-if="currentQuiz?.data">
+                      <div
+                        v-for="item in currentQuiz.data"
+                        :key="item"
+                        class="cursor-pointer flex-1 p-4 text-4xl font-bold underline underline-offset-8 hover:text-yellow-400"
+                      >
+                        {{ item }}
+                      </div>
+                    </div>
+                    <img
+                      v-if="isShowingAnswer && currentQuiz?.answer?.image"
+                      class="max-h-[320px]"
+                      :src="currentQuiz?.answer?.image"
+                      alt="answer"
+                    />
+                    <div>
+                      <div
+                        v-motion-slide-visible-bottom
+                        class="font-bold text-5xl mt-20 text-yellow-400 bg-black text-center p-4"
+                      >
+                        <span v-if="!isShowingAnswer">정답을 외쳐 주세요!</span>
+                        <span v-else>
+                          <TypingText :text="currentQuiz?.answer.text ?? ''" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div
-                    v-motion-slide-visible-bottom
-                    class="font-bold text-5xl mt-20 text-yellow-400 bg-black text-center p-4"
-                  >
-                    <span v-if="!isShowingAnswer">정답을 외쳐 주세요!</span>
-                    <span v-else>
-                      <TypingText :text="currentQuiz?.answer.text ?? ''" />
-                    </span>
+                </template>
+                <template v-else>
+                  <template v-if="!isShowingAnswer">
+                    <div v-for="image in currentQuiz?.image" :key="image">
+                      <img class="max-h-[480px]" :src="image" alt="info" />
+                    </div>
+                  </template>
+                  <div v-else>
+                    <img
+                      class="max-h-[480px]"
+                      :src="String(currentQuiz?.answer.image)"
+                      alt="answer"
+                    />
                   </div>
-                </div>
+                  <div class="">
+                    <div
+                      v-motion-slide-visible-bottom
+                      class="font-bold text-5xl text-yellow-400 bg-black text-center p-4"
+                    >
+                      <span v-if="!isShowingAnswer">정답을 외쳐 주세요!</span>
+                      <span v-else>
+                        <TypingText :text="currentQuiz?.answer.text ?? ''" />
+                      </span>
+                    </div>
+                  </div>
+                </template>
               </div>
             </div>
             <template v-if="!isShowingAnswer">
@@ -175,7 +227,7 @@ provide('randomIdx', randomIdx)
               />
               <button
                 v-else
-                v-motion-roll-visible-right
+                v-motion-roll-visible-once-right
                 type="button"
                 class="cursor-pointer w-full bg-slate-500 p-6 rounded-2xl text-center text-3xl font-bold hover:bg-slate-600"
                 @click="onShowAnswer"
@@ -185,7 +237,7 @@ provide('randomIdx', randomIdx)
             </template>
             <div v-else class="flex flex-col gap-8">
               <SelectButton
-                v-motion-roll-visible-bottom
+                v-motion-roll-visible-once-bottom
                 :disabled="false"
                 @click="onClickNextQuiz"
               >
@@ -193,10 +245,29 @@ provide('randomIdx', randomIdx)
               </SelectButton>
             </div>
           </div>
-          <RandomPlayer v-else :autoplay :selected-name="selectedUser.name" />
+          <RandomPlayer
+            v-else
+            v-model:randomIdx="randomIdx"
+            :autoplay
+            :selected-name="selectedUser.name"
+          />
         </Transition>
       </div>
     </section>
+    <div
+      v-if="isShowDifficulty"
+      v-motion-slide-bottom
+      class="absolute inset-0 flex flex-col justify-center items-center bg-black/85 z-10 w-full h-full"
+    >
+      <section class="flex flex-col gap-8 mb-40">
+        <h1 class="font-extrabold text-5xl text-center">난이도</h1>
+        <div class="flex items-center justify-center">
+          <div v-for="(star, index) in [...quizDifficulty]" :key="index">
+            <span class="text-9xl">{{ star }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 </template>
 <style scoped>

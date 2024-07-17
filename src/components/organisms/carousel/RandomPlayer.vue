@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
 import { ProfileCard } from '@/components'
 import { playerList, PLAYGROUND_CAROUSEL_COUNT } from '@/constant'
@@ -7,9 +6,10 @@ import { playerList, PLAYGROUND_CAROUSEL_COUNT } from '@/constant'
 defineProps<{
   autoplay?: number
   selectedName: string
+  randomIdx: number
 }>()
-const randomIdx = inject('randomIdx')
 </script>
+
 <template>
   <div class="w-[540px] mx-auto flex flex-col gap-8">
     <h1
@@ -20,7 +20,7 @@ const randomIdx = inject('randomIdx')
     </h1>
     <div>
       <Carousel
-        v-model="randomIdx"
+        :model-value="randomIdx"
         :items-to-show="PLAYGROUND_CAROUSEL_COUNT"
         :autoplay
         :wrap-around="true"

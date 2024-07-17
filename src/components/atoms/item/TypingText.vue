@@ -37,6 +37,7 @@ watch(
       v-for="(char, index) in displayedText"
       :key="index"
       v-motion="getMotion(index)"
+      class="pr-1 py-4"
     >
       {{ char }}
     </span>
