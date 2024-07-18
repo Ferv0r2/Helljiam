@@ -148,7 +148,7 @@ watch(autoplay, (value) => {
               <div class="flex items-center gap-4">
                 <LabelChip :name="quizType" />
                 <span>{{ quizDifficulty }}</span>
-                <span class="font-bold">{{ selectedUser.name }}</span>
+                <!-- <span class="font-bold">{{ selectedUser.name }}</span> -->
               </div>
               <h1
                 class="text-5xl leading-normal font-bold tracking-tighter text-[#F0F6FC]"

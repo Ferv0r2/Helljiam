@@ -1,42 +1,22 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAssetsLoader } from '@/composables'
-import router from '@/router'
 
-const assets = [
-  '/images/author.png',
-  '/images/banner.png',
-  '/images/logo.png',
-  '/images/og-banner.png',
-  '/images/profile/mingyu.png',
-  '/images/profile/jongwon.png',
-  '/images/profile/gyeongseok.png',
-  '/images/profile/hyeonu.png',
-  '/images/profile/jaewon.png',
-  '/images/profile/jaeyoon.png',
-  '/images/profile/gwiyeong.png',
-  '/images/profile/deogun.png',
-  '/images/profile/wontae.png',
-  '/images/profile/uchi.png',
-  '/images/profile/donggi.png',
-  '/images/profile/seunggi.png',
-  '/images/quiz/1.png',
-  '/images/quiz/2.png',
-  '/images/quiz/3.png',
-  '/images/quiz/5-1.png',
-  '/images/quiz/5-2.png',
-  '/images/quiz/6.png',
-  '/images/quiz/7.png',
-  '/images/quiz/8.png',
-  '/images/quiz/9.png',
-  '/images/quiz/10.png',
-  '/images/quiz/11-1.png',
-  '/images/quiz/11-2.png',
-  '/images/quiz/12.png',
-  '/images/quiz/13.png',
-]
+const imageModules = import.meta.glob('/public/images/**/*.png', {
+  eager: true,
+})
+
+const assets = Object.keys(imageModules).map((path) =>
+  path.replace('/public', ''),
+)
 
 const { loaded, progress, loadAssets } = useAssetsLoader(assets)
+const router = useRouter()
+
+const progressStyle = computed(() => ({
+  width: `${progress.value}%`,
+}))
 
 const onMovePlayground = () => {
   router.replace({
@@ -72,7 +52,7 @@ watch(loaded, (value) => value && onMovePlayground())
         <div class="bg-gray-100 w-3/4 h-12 rounded-md">
           <div
             class="bg-indigo-600 h-12 transition-all duration-300"
-            :class="`w-[${progress}%]`"
+            :style="progressStyle"
           />
         </div>
       </div>

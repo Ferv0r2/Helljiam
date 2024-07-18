@@ -198,7 +198,8 @@ export const quizList: IQuiz[] = [
   {
     id: '5',
     type: 'character',
-    title: '다음 두 인물 중에서 독립 운동가를 고르시오.',
+    title:
+      '다음 두 인물 중에서 독립 운동가를 고르시오.  (다른 한 명은 친일파입니다.)',
     difficulty: 5,
     image: ['/images/quiz/5-1.png', '/images/quiz/5-2.png'],
     answer: {
@@ -294,6 +295,196 @@ export const quizList: IQuiz[] = [
     answer: {
       image: null,
       text: '손석구',
+    },
+  },
+  {
+    id: '14',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 4,
+    image: '/images/quiz/14.png',
+    answer: {
+      image: null,
+      text: '김영철',
+    },
+  },
+  {
+    id: '15',
+    type: 'character',
+    title: '다음 캐릭터는 누구인가요?',
+    difficulty: 3,
+    image: '/images/quiz/15.png',
+    answer: {
+      image: null,
+      text: '자스민 공주',
+    },
+  },
+  {
+    id: '16',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 3,
+    image: '/images/quiz/16.png',
+    answer: {
+      image: null,
+      text: '봉준호',
+    },
+  },
+  {
+    id: '17',
+    type: 'game',
+    title:
+      '다음 캐릭터는 리그오브레전드의 다리우스이다. 다리우스의 W 스킬 이름은?',
+    difficulty: 3,
+    image: '/images/quiz/17.png',
+    data: [
+      '1. 학살의 일격',
+      '2. 도끼의 일격',
+      '3. 강화의 일격',
+      '4. 마비의 일격',
+    ],
+    answer: {
+      image: null,
+      text: '4. 마비의 일격',
+    },
+  },
+  {
+    id: '18',
+    type: 'game',
+    title: '다음 캐릭터는 리그오브레전드의 샤코이다. 본 스킨의 이름은?',
+    difficulty: 3,
+    image: '/images/quiz/18.png',
+    data: [
+      '1. 겨울의 축복 샤코',
+      '2. 밤의 끝 샤코',
+      '3. 겨울 동화 샤코',
+      '4. 깜짝 선물 샤코',
+    ],
+    answer: {
+      image: null,
+      text: '1. 겨울의 축복 샤코',
+    },
+  },
+  {
+    id: '19',
+    type: 'game',
+    title:
+      '다음 이미지는 리그오브레전드의 13.18 패치에 상점에 추가된 스킨이다. 어떤 챔피언인가?',
+    difficulty: 3,
+    image: '/images/quiz/19.png',
+    data: ['1. 이블린', '2. 아칼리', '3. 자이라', '4. 카이사'],
+    answer: {
+      image: null,
+      text: '3. 자이라',
+    },
+  },
+  {
+    id: '20',
+    type: 'game',
+    title: '다음 이미지는 서든어택의 총기 중 하나이다. 해당 총기의 이름은?',
+    difficulty: 3,
+    image: '/images/quiz/20.png',
+    answer: {
+      image: null,
+      text: '윈체스터',
+    },
+  },
+  {
+    id: '21',
+    type: 'game',
+    title:
+      '다음 이미지는 어몽어스에서 술래가 됐을 때, 보이는 화면이다. 술래의 명칭은?',
+    difficulty: 3,
+    image: '/images/quiz/21.png',
+    answer: {
+      image: null,
+      text: '임포스터',
+    },
+  },
+  {
+    id: '22',
+    type: 'game',
+    title: '다음 이미지는 대형 기업의 로고이다. 해당 기업의 명칭은?',
+    difficulty: 2,
+    image: '/images/quiz/22.png',
+    answer: {
+      image: null,
+      text: '샤오미',
+    },
+  },
+  {
+    id: '23',
+    type: 'helljiam',
+    title:
+      '다음 인물은 헬지암팸의 김현우이다. 그의 형제자매 여부는? ex) 형 1, 누나 1',
+    difficulty: 1,
+    image: '/images/quiz/23.png',
+    answer: {
+      image: null,
+      text: '여동생 1',
+    },
+  },
+  {
+    id: '24',
+    type: 'etc',
+    title: '세상의 온갖 고생과 시련을 겪어 경험이 많다는 뜻의 사자성어는?',
+    difficulty: 4,
+    image: '/images/quiz/24.png',
+    answer: {
+      image: null,
+      text: '산전수전',
+    },
+  },
+  {
+    id: '25',
+    type: 'character',
+    title: '다음 인물은 누구인가요?',
+    difficulty: 2,
+    image: '/images/quiz/25.png',
+    answer: {
+      image: null,
+      text: '이경규',
+    },
+  },
+  {
+    id: '26',
+    type: 'etc',
+    title: '다음 이미지는 세종대왕이 한글을 만든 장소이다. 이곳의 명칭은?',
+    difficulty: 3,
+    image: '/images/quiz/26.png',
+    answer: {
+      image: null,
+      text: '집현전',
+    },
+  },
+  {
+    id: '27',
+    type: 'etc',
+    title:
+      'V.I.P는 Very Important Person의 약자로 "매우 중요한 사람"이라는 뜻이다. 그렇다면 스포츠에서 M.V.P의 약자는?',
+    difficulty: 3,
+    image: '/images/quiz/27.png',
+    data: [
+      '1. Most Variable Player',
+      '2. Most Volume Person',
+      '3. Most Victory Person',
+      '4. Most Valuable Player',
+    ],
+    answer: {
+      image: null,
+      text: '4. Most Valuable Player',
+    },
+  },
+  {
+    id: '28',
+    type: 'character',
+    title:
+      '다음 두 인물 중에서 독립 운동가를 고르시오. (다른 한 명은 친일파입니다.)',
+    difficulty: 5,
+    image: ['/images/quiz/28-1.png', '/images/quiz/28-2.png'],
+    answer: {
+      image: '/images/quiz/28-2.png',
+      text: '[홍범도 장군] 일제강점기 때, 대한독립군 총사령관, 대한독립군단 부총재 등을 역임하며 봉오동전투, 청산리대첩에서 대승을 이끈 군인 · 독립운동가.',
     },
   },
 ]

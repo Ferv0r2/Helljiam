@@ -16,7 +16,7 @@ defineProps<{
       class="text-5xl leading-normal font-bold tracking-tighter text-[#F0F6FC]"
     >
       문제 푸는 사람
-      <span v-if="!autoplay">: {{ selectedName }}</span>
+      <!-- <span v-if="!autoplay">: {{ selectedName }}</span> -->
     </h1>
     <div>
       <Carousel
