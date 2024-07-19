@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAssetsLoader } from '@/composables'
 
@@ -32,7 +32,7 @@ onMounted(() => {
   loadAssets()
 })
 
-watch(loaded, (value) => value && onMovePlayground())
+watch(loaded, (value) => value && nextTick(onMovePlayground))
 </script>
 <template>
   <main class="min-h-screen">

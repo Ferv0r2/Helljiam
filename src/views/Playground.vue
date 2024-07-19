@@ -8,6 +8,7 @@ import {
   SelectButton,
   TypingText,
 } from '@/components'
+import { useKeyDown } from '@/composables'
 import {
   playerList,
   quizList,
@@ -37,6 +38,7 @@ const quizTitle = computed(() => currentQuiz.value?.title)
 const quizDifficulty = computed(() =>
   '⭐'.repeat(currentQuiz.value?.difficulty ?? 1),
 )
+const isVideoQuiz = computed(() => currentQuiz.value?.isVideo)
 const isStringQuizImage = computed(
   () => typeof currentQuiz.value?.image === 'string',
 )
@@ -134,6 +136,42 @@ watch(autoplay, (value) => {
     }
   }
 })
+
+const onEnterNext = () => {
+  if (isSelecting.value) {
+    return
+  }
+
+  if (isShowingAnswer.value) {
+    onClickNextQuiz()
+    return
+  }
+
+  if (timeEnd.value) {
+    onShowAnswer()
+    return
+  }
+}
+
+const onEnterSkip = () => {
+  if (isSelecting.value) {
+    stopTimer()
+    isSelecting.value = false
+    return
+  }
+
+  if (isShowingAnswer.value) {
+    onClickNextQuiz()
+    return
+  }
+
+  onShowAnswer()
+}
+
+useKeyDown({
+  confirm: onEnterNext,
+  skip: onEnterSkip,
+})
 </script>
 <template>
   <main class="relative min-h-screen overflow-hidden">
@@ -157,8 +195,16 @@ watch(autoplay, (value) => {
               </h1>
               <div class="grid grid-cols-2 gap-12">
                 <template v-if="isStringQuizImage">
+                  <video
+                    v-if="isVideoQuiz"
+                    class="max-h-[600px]"
+                    :src="String(currentQuiz?.image)"
+                    autoplay
+                    controls
+                    alt="info"
+                  />
                   <img
-                    v-if="currentQuiz?.image"
+                    v-else-if="currentQuiz?.image"
                     class="max-h-[480px]"
                     :src="String(currentQuiz.image)"
                     alt="info"

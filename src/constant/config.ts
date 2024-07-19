@@ -12,5 +12,7 @@ export enum QuizType {
   'helljiam' = '헬지암 퀴즈',
   'character' = '인물 퀴즈',
   'game' = '게임 퀴즈',
+  'movie' = '영화 퀴즈',
+  'song' = '노래 퀴즈',
   'etc' = '기타 퀴즈',
 }

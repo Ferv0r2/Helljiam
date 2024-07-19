@@ -1,4 +1,10 @@
-export type QuizType = 'helljiam' | 'character' | 'game' | 'etc'
+export type QuizType =
+  | 'helljiam'
+  | 'character'
+  | 'game'
+  | 'movie'
+  | 'song'
+  | 'etc'
 
 export type IQuiz = {
   id: string
@@ -8,4 +14,5 @@ export type IQuiz = {
   image: string | string[]
   data?: string[]
   answer: { text: string; image: string | null }
+  isVideo?: boolean
 }
