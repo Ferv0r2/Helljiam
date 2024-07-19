@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getAssetUrl } from '@/utils'
+
 defineProps<{
   id: string
   name: string
@@ -15,7 +17,7 @@ defineProps<{
     <div class="grid gap-4">
       <img
         class="w-full rounded-xl"
-        :src="`src/assets/profile/${id}.png`"
+        :src="getAssetUrl(`${id}.png`)"
         alt="profile"
       />
       <div class="flex justify-between items-center">

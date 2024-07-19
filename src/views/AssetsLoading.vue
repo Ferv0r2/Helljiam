@@ -11,8 +11,6 @@ const assets = Object.values(imageModules).map(
   (mod: any) => new URL(mod.default, import.meta.url).href,
 )
 
-console.log(assets)
-
 const { loaded, progress, loadAssets } = useAssetsLoader(assets)
 const router = useRouter()
 
