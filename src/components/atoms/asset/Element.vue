@@ -12,7 +12,9 @@ const iconComponent = computed(() => {
     const findName = './icons/' + props.name + '.vue'
     return fileName === findName
   })
-  if (!findModule) throw new Error('cannot find icon component: ' + props.name)
+  if (!findModule) {
+    throw new Error('cannot find icon component: ' + props.name)
+  }
   return defineAsyncComponent(async () => {
     return (await findModule[1]()) as Component
   })

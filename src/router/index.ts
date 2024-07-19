@@ -8,6 +8,26 @@ const router = createRouter({
       name: 'home',
       component: () => import('@/views/Home.vue'),
     },
+    {
+      path: '/quiz-selector',
+      name: 'quiz-selector',
+      component: () => import('@/views/QuizSelector.vue'),
+    },
+    {
+      path: '/playground',
+      name: 'playground',
+      component: () => import('@/views/Playground.vue'),
+    },
+    {
+      path: '/loading',
+      name: 'loading',
+      component: () => import('@/views/AssetsLoading.vue'),
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/views/TestView.vue'),
+    },
   ],
 })
 
