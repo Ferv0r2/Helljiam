@@ -3,7 +3,7 @@ import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAssetsLoader } from '@/composables'
 
-const imageModules = import.meta.glob('@/assets/**/*.png', {
+const imageModules = import.meta.glob('/images/**/*.png', {
   eager: true,
 })
 
