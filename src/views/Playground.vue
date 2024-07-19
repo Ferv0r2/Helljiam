@@ -18,6 +18,7 @@ import {
   SELECTOR_PLAYER_TIMER,
 } from '@/constant'
 import { useQuizStore } from '@/stores/quizStore'
+import { getAssetUrl } from '@/utils'
 
 const router = useRouter()
 const quizStore = useQuizStore()
@@ -198,7 +199,7 @@ useKeyDown({
                   <video
                     v-if="isVideoQuiz"
                     class="max-h-[600px]"
-                    :src="String(currentQuiz?.image)"
+                    :src="getAssetUrl(String(currentQuiz?.image))"
                     autoplay
                     controls
                     alt="info"
@@ -206,7 +207,7 @@ useKeyDown({
                   <img
                     v-else-if="currentQuiz?.image"
                     class="max-h-[480px]"
-                    :src="String(currentQuiz.image)"
+                    :src="getAssetUrl(String(currentQuiz?.image))"
                     alt="info"
                   />
                   <div>
@@ -222,7 +223,7 @@ useKeyDown({
                     <img
                       v-if="isShowingAnswer && currentQuiz?.answer?.image"
                       class="max-h-[320px]"
-                      :src="currentQuiz?.answer?.image"
+                      :src="getAssetUrl(String(currentQuiz?.answer?.image))"
                       alt="answer"
                     />
                     <div>
@@ -241,13 +242,17 @@ useKeyDown({
                 <template v-else>
                   <template v-if="!isShowingAnswer">
                     <div v-for="image in currentQuiz?.image" :key="image">
-                      <img class="max-h-[480px]" :src="image" alt="info" />
+                      <img
+                        class="max-h-[480px]"
+                        :src="getAssetUrl(image)"
+                        alt="info"
+                      />
                     </div>
                   </template>
                   <div v-else>
                     <img
                       class="max-h-[480px]"
-                      :src="String(currentQuiz?.answer.image)"
+                      :src="getAssetUrl(String(currentQuiz?.answer.image))"
                       alt="answer"
                     />
                   </div>
