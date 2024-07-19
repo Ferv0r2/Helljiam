@@ -3,13 +3,12 @@ import { computed, onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAssetsLoader } from '@/composables'
 
-const imageModules = import.meta.glob('/public/images/**/*.png', {
+const imageModules = import.meta.glob('@/assets/**/*.png', {
   eager: true,
 })
 
-const assets = Object.keys(imageModules).map((path) =>
-  path.replace('/public', ''),
-)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const assets = Object.values(imageModules).map((mod: any) => mod.default)
 
 const { loaded, progress, loadAssets } = useAssetsLoader(assets)
 const router = useRouter()

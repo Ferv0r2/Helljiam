@@ -15,7 +15,7 @@ defineProps<{
     <div class="grid gap-4">
       <img
         class="w-full rounded-xl"
-        :src="`/images/profile/${id}.png`"
+        :src="`src/assets/profile/${id}.png`"
         alt="profile"
       />
       <div class="flex justify-between items-center">
