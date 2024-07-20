@@ -176,8 +176,8 @@ useKeyDown({
 </script>
 <template>
   <main class="relative min-h-screen overflow-hidden">
-    <section class="w-4/5 mx-auto py-16 bg-[#0D1117]">
-      <div class="container flex justify-center mx-auto px-4 md:px-6">
+    <section class="lg:w-full w-4/5 mx-auto py-16 bg-[#0D1117]">
+      <div class="flex justify-center mx-auto px-4 md:px-6">
         <Transition name="fade-slide" mode="out-in">
           <div
             v-if="!isSelecting"

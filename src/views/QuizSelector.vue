@@ -42,9 +42,9 @@ const onStartGame = () => {
   <main
     class="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-orange-900 overflow-hidden"
   >
-    <section class="grid w-full py-12">
+    <section class="flex items-center py-12">
       <div
-        class="container flex flex-col gap-12 items-center justify-center mx-auto px-4 md:px-6"
+        class="w-full flex flex-col lg:gap-4 gap-8 items-center justify-center mx-auto px-4 md:px-6"
       >
         <div class="flex items-center">
           <div class="space-y-8 relative z-10">
@@ -55,8 +55,10 @@ const onStartGame = () => {
             </h1>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-12 px-12 py-8 rounded-2xl">
-          <div>
+        <div
+          class="grid lg:grid-cols-2 grid-cols-3 lg:gap-12 gap-4 lg:px-12 py-8 rounded-2xl"
+        >
+          <div class="lg:col-span-1 col-span-2">
             <div class="text-xl px-6 font-semibold">헬지암인</div>
             <Carousel
               :model-value="currentSlide"
